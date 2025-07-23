@@ -154,7 +154,7 @@ export const saveNote = async (req, res) => {
       beautifiedText,
       summaryText,
       takeaways,
-      user: req.user.id,
+      user: req.user.userId,
     });
     await note.save();
     res.status(201).json({ success: true, data: note });
@@ -169,7 +169,7 @@ export const saveNote = async (req, res) => {
  */
 export const getAllNotes = async (req, res) => {
   try {
-    const notes = await Notes.find({ user: req.user.id }).sort({
+    const notes = await Notes.find({ user: req.user.userId }).sort({
       createdAt: -1,
     });
     res.json({ success: true, data: notes });
