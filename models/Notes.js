@@ -11,6 +11,7 @@ const NotesSchema = new mongoose.Schema({
   summaryText: { type: String, required: true },
   takeaways: { type: [String], required: true },
   createdAt: { type: Date, default: Date.now },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 const Notes = mongoose.model("Notes", NotesSchema);

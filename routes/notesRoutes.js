@@ -19,7 +19,7 @@ router.post("/summarize", authMiddleware, summarizeNotes);
 // POST /api/save - Save a note to the database (protected)
 router.post("/save", authMiddleware, saveNote);
 
-// GET /api/notes - Get all saved notes (public)
-router.get("/notes", getAllNotes);
+// GET /api/notes - Get all saved notes (protected)
+router.get("/notes", authMiddleware, getAllNotes);
 
 export default router;

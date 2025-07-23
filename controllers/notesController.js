@@ -149,7 +149,13 @@ export const saveNote = async (req, res) => {
     if (!rawText || !beautifiedText || !summaryText || !takeaways) {
       return res.status(400).json({ error: "Missing required note fields." });
     }
-    const note = new Notes({ rawText, beautifiedText, summaryText, takeaways });
+    const note = new Notes({
+      rawText,
+      beautifiedText,
+      summaryText,
+      takeaways,
+      user: req.user.id,
+    });
     await note.save();
     res.status(201).json({ success: true, data: note });
   } catch (error) {
@@ -158,12 +164,14 @@ export const saveNote = async (req, res) => {
 };
 
 /**
- * Retrieves all saved notes from MongoDB, sorted by creation date (newest first).
+ * Retrieves all saved notes for the authenticated user from MongoDB, sorted by creation date (newest first).
  * Returns: Array of note documents.
  */
 export const getAllNotes = async (req, res) => {
   try {
-    const notes = await Notes.find().sort({ createdAt: -1 });
+    const notes = await Notes.find({ user: req.user.id }).sort({
+      createdAt: -1,
+    });
     res.json({ success: true, data: notes });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch notes. Please try again." });
