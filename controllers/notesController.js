@@ -46,7 +46,7 @@ export const summarizeNotes = async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "qwen/qwen3-235b-a22b-07-25:free",
+          model: "openai/gpt-4o-mini",
           messages: [
             {
               role: "system",
